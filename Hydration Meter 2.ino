@@ -1,4 +1,4 @@
-/*This sketch explains the working of Personal Hydration Meter
+/*This sketch explins the working of Personal Hydration Meter
  * Works on priciple of electric conductivity of urine
  */
 
@@ -10,7 +10,7 @@
 #include <MFRC522.h>
 
 //LCD
-LiquidCrystal_I2C lcd(0x3F, 16, 2);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 //rfid 
 #define RST_PIN 0
@@ -25,7 +25,7 @@ String user;
 
 //Pushing Box Credentials
 const char WEBSITE[] = "api.pushingbox.com";
-const String devid = "v028FA2AB5025CBC";
+const String devid = "vCBAD6B1D9EE1D69";
 
 //Wifi Credentials
 const char* MY_SSID = "Reap_Benefit_2.4";
@@ -34,21 +34,26 @@ const char* MY_PWD =  "solvesmalldentbig";
 void setup() {
   Serial.begin(115200);
 
-  //Calling function to connect to Wifi
-  wificonnect(); 
+  
 
   pinMode(sensorPower, OUTPUT);
 
   //Initializing LCD
   lcd.init();
   lcd.backlight();
+  delay(500);
   lcd.setCursor(0, 0);
+  lcd.print("Hydration Meter");
+
+  //Calling function to connect to Wifi
+  wificonnect(); 
   
   //Initializing RFID
   SPI.begin();
   mfrc522.PCD_Init(); 
   Serial.println("Approximate your card to the reader:");
   Serial.println();
+  
 }
 
 void loop() {
@@ -59,8 +64,8 @@ void loop() {
 }
 
 void testdata() {
-  lcd.setCursor(0, 0);
-  lcd.print("Hydration Meter");
+  //lcd.setCursor(0, 0);
+  //lcd.print("Hydration Meter");
 
   if ( ! mfrc522.PICC_IsNewCardPresent())
   {
@@ -121,13 +126,7 @@ void testdata() {
     displaycontent();
   }
 
-  else {
-    lcd.clear();
-    lcd.setCursor(0, 0);
-    lcd.print("Not Recognized");
-    delay(3000);
-    lcd.clear();
-  }
+ 
 }
 
 void wificonnect() {
@@ -143,6 +142,9 @@ void wificonnect() {
   Serial.println("");
   Serial.println("Credentials accepted! Connected to wifi\n ");
   Serial.println("");
+  delay(1000);
+  lcd.setCursor(0,1);
+  lcd.print("WiFi connected");
 }
 
 void pushbox() {
@@ -182,5 +184,7 @@ void displaycontent() {
   Serial.println(value);
   delay(8000);
   lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Hydration Meter");
 
 }
