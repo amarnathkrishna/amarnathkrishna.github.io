@@ -14,7 +14,7 @@ void setup()
 }
 void loop()
 {
-  sensorValue = analogRead(sensorPin);  // read the value from the sensor:
+  sensorValue = analogRead(sensorPin);  
   delay(1000);
   if (sensorValue > 600) {
     lcd.clear();
