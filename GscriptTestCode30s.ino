@@ -16,7 +16,7 @@ WiFiClientSecure client;
 
 // SHA1 fingerprint of the certificate, don't care with your GAS service
 const char* fingerprint = "46 B2 C3 44 9C 59 09 8B 01 B6 F8 BD 4C FB 00 74 91 2F EF F6";
-String GAS_ID = "AKfycbx-X84I-6ca6TunK7jaazczCnxa2oC7JsQ9ARZKb4N9EKivgbc"; 	// Replace by your GAS service id
+String GAS_ID = "AKfycbx-X84I-6ca6TunK7jaazczCnxa2oC7JsQ9ARZKb4N9EKivgbc";  // Replace by your GAS service id
 void setup()
 {
   //pinMode(buttonPin, INPUT);
@@ -39,6 +39,7 @@ void setup()
 
 void loop()
 {
+  
   sendData(114, "Amarnath");
   delay(30000);
 
