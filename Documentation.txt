@@ -1,0 +1,11 @@
+//NodeMCU to GScript data pushing documentation:
+
+Every 1 minute, nodemcu pushes dummy data into Google Sheets : successful
+Every 30 seconds, nodemcu pushes dummy data into Google Sheets : successful
+
+Every 30 seconds nodemcu pushes dummy data into Google Sheets on 2G: successful, but takes 35-37 seconds for every iteration.
+Every 30 seconds nodemcu pushes dummy data into Google Sheets on 3G: successful, but takes 32-33 seconds for every iteration.
+
+ GScript uses WifiClientSecure library.
+
+ ESP.restart()/ESP.reset()
