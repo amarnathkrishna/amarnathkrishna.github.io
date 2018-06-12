@@ -8,12 +8,6 @@ String readString;
 const char* ssid = "ReapBenefit";
 const char* password = "solvesmalldentbig";
 
-//const int buttonPin = 2;    			// the number of the pushbutton pin
-//int buttonState;             			// the current reading from the input pin
-//int lastButtonState = LOW;   			// the previous reading from the input pin
-//unsigned long lastDebounceTime = 0;  	// the last time the output pin was toggled
-//unsigned long debounceDelay = 50;    	// the debounce time; increase if the output flickers
-
 const char* host = "script.google.com";
 const int httpsPort = 443;
 // Use WiFiClientSecure class to create TLS connection
