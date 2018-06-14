@@ -1,5 +1,6 @@
 //NodeMCU to GScript data pushing documentation:
 
+12 June 2018:
 Every 1 minute, nodemcu pushes dummy data into Google Sheets : successful
 Every 30 seconds, nodemcu pushes dummy data into Google Sheets : successful
 
@@ -10,10 +11,16 @@ Every 30 seconds nodemcu pushes dummy data into Google Sheets on 3G: successful,
 
  ESP.restart()/ESP.reset()
 
+ 13 June 2018:
  Currently using multiple if/else ladder to scan through RFID tags. 
 
- Soldered new components onto perforated board(13 June):
+ Soldered new components onto perforated board:
  1)only NodeMCU and RFID --> dummy data uploaded into GSheet using GScript
  2)NodeMCU+RFID+Moisture Sensor --> data uploaded into GSheet 
  3)all components soldered, connected to ReapBenefit Wifi --> Data uploaded into GSheet
 
+Currently, Hydration Meter in the ground floor waterless urinal is working with ReapBenefit wifi. 
+
+14 June 2018:
+Due to huge if-else ladder, and possible redundancy in code, looking at alternate methods to store RFID tag IDs.
+Use array/list to match scanned tagID to the stored tagID. 
