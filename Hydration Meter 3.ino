@@ -18,7 +18,7 @@ LiquidCrystal_I2C lcd(0x27, 16, 2); // or 0x3F
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 //Wifi Credentials
-const char* ssid = "ReapBenefit";                 //Your Wifi SSID
+const char* ssid = "ReapBenefit_Act_Upstairs";                 //Your Wifi SSID
 const char* password = "solvesmalldentbig";               //Wifi password
 
 //For pushing data into google sheet
@@ -126,7 +126,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
   }
 
@@ -150,7 +150,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -175,7 +175,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
   }
 
@@ -199,7 +199,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -221,7 +221,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -243,7 +243,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -265,7 +265,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -287,7 +287,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -309,7 +309,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -334,7 +334,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -359,7 +359,7 @@ void loop()
     sendData(value, user1);
 
     delay(5000);
- 
+
     ESP.restart();
 
   }
@@ -371,7 +371,48 @@ void sendData(int val, String user)
 {
   Serial.print("connecting to ");
   Serial.println(host);
-  if (!client.connect(host, httpsPort)) {
+  if (client.connect(host, httpsPort)) 
+  {
+
+    if (client.verify(fingerprint, host)) {
+      Serial.println("certificate matches");
+    } else {
+      Serial.println("certificate doesn't match");
+    }
+
+    String string_value =  String(val, DEC);
+    String string_user = String(user);
+
+    String url = "/macros/s/" + GAS_ID + "/exec?value=" + string_value + "&user=" + string_user ;
+    Serial.print("requesting URL: ");
+    Serial.println(url);
+
+    client.print(String("GET ") + url + " HTTP/1.1\r\n" +
+                 "Host: " + host + "\r\n" +
+                 "User-Agent: BuildFailureDetectorESP8266\r\n" +
+                 "Connection: close\r\n\r\n");
+
+    Serial.println("request sent");
+    while (client.connected()) {
+      String line = client.readStringUntil('\n');
+      if (line == "\r") {
+        Serial.println("headers received");
+        break;
+      }
+    }
+    String line = client.readStringUntil('\n');
+    if (line.startsWith("{\"state\":\"success\"")) {
+      Serial.println("esp8266/Arduino CI successfull!");
+    } else {
+      Serial.println("esp8266/Arduino CI has failed");
+    }
+    Serial.println("reply was:");
+    Serial.println("==========");
+    Serial.println(line);
+    Serial.println("==========");
+    Serial.println("closing connection");
+  }
+  else {
     Serial.println("connection failed");
     lcd.clear();
     lcd.setCursor(0, 0);
@@ -379,44 +420,4 @@ void sendData(int val, String user)
     delay(3000);
     return;
   }
-
-  if (client.verify(fingerprint, host)) {
-    Serial.println("certificate matches");
-  } else {
-    Serial.println("certificate doesn't match");
-  }
-
-  String string_value =  String(val, DEC);
-  String string_user = String(user);
-
-  String url = "/macros/s/" + GAS_ID + "/exec?value=" + string_value + "&user=" + string_user ;
-  Serial.print("requesting URL: ");
-  Serial.println(url);
-
-  client.print(String("GET ") + url + " HTTP/1.1\r\n" +
-               "Host: " + host + "\r\n" +
-               "User-Agent: BuildFailureDetectorESP8266\r\n" +
-               "Connection: close\r\n\r\n");
-
-  Serial.println("request sent");
-  while (client.connected()) {
-    String line = client.readStringUntil('\n');
-    if (line == "\r") {
-      Serial.println("headers received");
-      break;
-    }
-  }
-  String line = client.readStringUntil('\n');
-  if (line.startsWith("{\"state\":\"success\"")) {
-    Serial.println("esp8266/Arduino CI successfull!");
-  } else {
-    Serial.println("esp8266/Arduino CI has failed");
-  }
-  Serial.println("reply was:");
-  Serial.println("==========");
-  Serial.println(line);
-  Serial.println("==========");
-  Serial.println("closing connection");
 }
-
-
