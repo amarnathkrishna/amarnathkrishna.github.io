@@ -9,3 +9,11 @@ Every 30 seconds nodemcu pushes dummy data into Google Sheets on 3G: successful,
  GScript uses WifiClientSecure library.
 
  ESP.restart()/ESP.reset()
+
+ Currently using multiple if/else ladder to scan through RFID tags. 
+
+ Soldered new components onto perforated board(13 June):
+ 1)only NodeMCU and RFID --> dummy data uploaded into GSheet using GScript
+ 2)NodeMCU+RFID+Moisture Sensor --> data uploaded into GSheet 
+ 3)all components soldered, connected to ReapBenefit Wifi --> Data uploaded into GSheet
+
