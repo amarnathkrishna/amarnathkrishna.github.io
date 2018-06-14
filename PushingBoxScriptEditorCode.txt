@@ -1,0 +1,69 @@
+//Pushing Box Script Editor code:
+
+// This method will be called first or hits first  
+function doGet(e){
+  Logger.log("--- doGet ---");
+ 
+ var user = "",
+     value = "";
+ 
+  try {
+ 
+    // this helps during debuggin 
+    if (e == null){e={}; e.parameters = {user:"test",value:"-1"};}
+
+    user = e.parameters.user;
+    value = e.parameters.value;
+ 
+    // save the data to spreadsheet
+    save_data(user, value);
+ 
+ 
+    return ContentService.createTextOutput("Wrote:\n  user: " + user + "\n  value: " + value);
+ 
+  } catch(error) { 
+    Logger.log(error);    
+    return ContentService.createTextOutput("oops...." + error.message 
+                                            + "\n" + new Date() 
+                                            + "\nuser: " + user +
+                                            + "\nvalue: " + value);
+  }  
+}
+ 
+// Method to save given data to a sheet
+function save_data(user, value){
+  Logger.log("--- save_data ---"); 
+ 
+ 
+  try {
+    var dateTime = new Date();
+ 
+    // Paste the URL of the Google Sheets starting from https thru /edit
+    // For e.g.: https://docs.google.com/..../edit 
+    var ss = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1nB90Yj-SRrFQeoi7GzueObzBlM0sEWdNliBAo9_tILI/edit");
+    var summarySheet = ss.getSheetByName("Summary");
+    var dataLoggerSheet = ss.getSheetByName("DataLogger");
+ 
+ 
+    // Get last edited row from DataLogger sheet
+    var row = dataLoggerSheet.getLastRow() + 1;
+ 
+ 
+    // Start Populating the data
+    dataLoggerSheet.getRange("A" + row).setValue(row -1); // ID
+    dataLoggerSheet.getRange("B" + row).setValue(dateTime); // dateTime
+    dataLoggerSheet.getRange("C" + row).setValue(user); // tag
+    dataLoggerSheet.getRange("D" + row).setValue(value); // value
+ 
+ 
+    // Update summary sheet
+    summarySheet.getRange("B1").setValue(dateTime); // Last modified date
+    summarySheet.getRange("B2").setValue(row - 1); // Count 
+  }
+ 
+  catch(error) {
+    Logger.log(JSON.stringify(error));
+  }
+ 
+  Logger.log("--- save_data end---"); 
+}
