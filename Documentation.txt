@@ -24,3 +24,14 @@ Currently, Hydration Meter in the ground floor waterless urinal is working with 
 14 June 2018:
 Due to huge if-else ladder, and possible redundancy in code, looking at alternate methods to store RFID tag IDs.
 Use array/list to match scanned tagID to the stored tagID. 
+
+ESP8266 uses 2.4Ghz frequency for wifi. 
+
+18 June 2018:
+To turn off wifi after use, either use ESP.deepSleep(25000, WAKE_RF_DEFAULT)
+or use WiFi.mode(WIFI_OFF).
+On the internet, it is found that using Wifi.mode gives 70mA, whereas ESP.deepSleep uses 14mA.
+So WiFi.mode does not completely turn off the wifi radio.
+For more power saving mode, use  Wifi.forceSleepBegin()
+You can use WiFi.disconnect() too, but there are instances that erases the SSID and password.
+
