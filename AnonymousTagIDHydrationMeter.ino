@@ -11,7 +11,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 MFRC522::MIFARE_Key key;
 
-//Creating LCD instance
+
 LiquidCrystal_I2C lcd(0x3F, 16, 2); // or 0x3F
 
 const char* ssid = "ReapBenefit";                 //Your Wifi SSID
