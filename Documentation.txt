@@ -40,5 +40,7 @@ PCB fabrication on perforated board.
 
 21 June 2018:
 Code updation - No preloadeed authorized cards on NodeMCU memory. Reading any MIFARE RFID Card, and upload the data to google sheets. 
+Better since it reduces memory usage in NodeMCU and handling of userID is in the backend.
 Uses the example code of ReadNUID available in the examples. 
+
 Existing system has been in test for 3 weeks. Average value of 450 obtained. 
