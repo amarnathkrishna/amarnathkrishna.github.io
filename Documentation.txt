@@ -44,3 +44,12 @@ Better since it reduces memory usage in NodeMCU and handling of userID is in the
 Uses the example code of ReadNUID available in the examples. 
 
 Existing system has been in test for 3 weeks. Average value of 450 obtained. 
+
+22 June 2018:
+GPIO 9 & 10 can be used for input, if all digital inputs are occupied.
+PIR sensor used in place of RFID to trigger circuit.
+
+25 June 2018:
+PIR sensor in place of RFID tag.
+Detects motion and triggers moisture sensor. 
+
