@@ -51,5 +51,4 @@ PIR sensor used in place of RFID to trigger circuit.
 
 25 June 2018:
 PIR sensor in place of RFID tag.
-Detects motion and triggers moisture sensor. 
-
+Detects motion and triggers moisture sensor.
